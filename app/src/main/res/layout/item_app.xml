@@ -4,7 +4,7 @@
     android:layout_height="wrap_content"
     android:padding="5dp"
     android:orientation="vertical"
-    android:id="@+id/appLayout"
+    android:id="@+id/layout"
     >
 
     <ImageView
