@@ -18,11 +18,14 @@ public class viewPagerAdapter extends PagerAdapter {
 
     Context context;
     ArrayList<PagerObject> pagerAppList;
+    int ceilHeight;
 
-    public viewPagerAdapter(Context context, ArrayList<PagerObject> pagerAppList) {
+    public viewPagerAdapter(Context context, ArrayList<PagerObject> pagerAppList, int ceilHeight) {
         this.context = context;
         this.pagerAppList = pagerAppList;
+        this.ceilHeight = ceilHeight;
     }
+
 
     // this is responsible for to show the item in the app
     @NonNull
@@ -33,7 +36,7 @@ public class viewPagerAdapter extends PagerAdapter {
         ViewGroup layout = (ViewGroup) inflater.inflate(R.layout.pager_layout, container, false);
 
         final GridView mGridView = layout.findViewById(R.id.grid);
-        mGridView.setAdapter(new AppAdapter(context,pagerAppList.get(position).getAppList()));
+        mGridView.setAdapter(new AppAdapter(context,pagerAppList.get(position).getAppList(), ceilHeight));
 
         container.addView(layout);
 

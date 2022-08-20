@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -19,10 +20,12 @@ import java.util.List;
 public class AppAdapter extends BaseAdapter {
     Context context;
     List<AppObject> appList;
+    int ceilHeight;
 
-    public AppAdapter(Context context, List<AppObject> appList) {
+    public AppAdapter(Context context, List<AppObject> appList,int ceilHeight) {
         this.context = context;
         this.appList = appList;
+        this.ceilHeight = ceilHeight;
     }
 
     public int getCount() {
@@ -58,6 +61,10 @@ public class AppAdapter extends BaseAdapter {
 
         mimage.setImageDrawable(appList.get(i).getImage());
         mlabel.setText(appList.get(i).getName());
+
+        // creating custum height for the home screen
+        LinearLayout.LayoutParams lp = new  LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, ceilHeight);
+        mlayout.setLayoutParams(lp);
 
         mlayout.setOnClickListener(new View.OnClickListener() {
             @Override
