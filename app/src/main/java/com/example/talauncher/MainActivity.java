@@ -32,11 +32,11 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    boolean isbottom = true;
+//    boolean isbottom = true;
     ViewPager mViewPager;
     int ceilHeight;
-    int NUMBER_OF_ROWS = 5;
-    int DRAWER_PEEK_HEIGHT = 100;
+//    int NUMBER_OF_ROWS = 5;
+    int DRAWER_PEEK_HEIGHT = 200;
     String PREFS_NAME = "NovaPrefs";
 
     int numRow = 0, numColumn = 0;
