@@ -12,6 +12,7 @@ import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.TextView;
 
+import com.example.talauncher.MainActivity;
 import com.example.talauncher.R;
 import com.example.talauncher.model.AppObject;
 
@@ -49,11 +50,9 @@ public class AppAdapter extends BaseAdapter {
         if(view == null){
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(context.LAYOUT_INFLATER_SERVICE);
             v = inflater.inflate(R.layout.item_app,parent, false);
-
         }else {
             v = view;
         }
-
 
         LinearLayout mlayout = v.findViewById(R.id.layout);
         ImageView mimage = v.findViewById(R.id.image);
@@ -66,19 +65,25 @@ public class AppAdapter extends BaseAdapter {
         LinearLayout.LayoutParams lp = new  LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, ceilHeight);
         mlayout.setLayoutParams(lp);
 
-        mlayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent launchAppIntent = context.getPackageManager().getLaunchIntentForPackage(appList.get(i).getPackageName());
+        mlayout.setOnClickListener((view1) -> {
+//                Intent launchAppIntent = context.getPackageManager().getLaunchIntentForPackage(appList.get(i).getPackageName());
+//
+//                if(launchAppIntent != null){
+//                    context.startActivity(launchAppIntent);
+//                }
 
-                if(launchAppIntent != null){
-                    context.startActivity(launchAppIntent);
-                }
+            ( (MainActivity) context).itemPress(appList.get(i));
 
-            }
+
         });
 
-
+        mlayout.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                ( (MainActivity)context).itemLongPressed(appList.get(i));
+                return true;
+            }
+        });
         return v;
     }
 }

@@ -18,12 +18,14 @@ public class viewPagerAdapter extends PagerAdapter {
 
     Context context;
     ArrayList<PagerObject> pagerAppList;
-    int ceilHeight;
+    int ceilHeight, numColumn;
+    ArrayList<AppAdapter> appAdapterList = new ArrayList<>();
 
-    public viewPagerAdapter(Context context, ArrayList<PagerObject> pagerAppList, int ceilHeight) {
+    public viewPagerAdapter(Context context, ArrayList<PagerObject> pagerAppList, int ceilHeight, int numColumn) {
         this.context = context;
         this.pagerAppList = pagerAppList;
         this.ceilHeight = ceilHeight;
+        this.numColumn = numColumn;
     }
 
 
@@ -36,7 +38,12 @@ public class viewPagerAdapter extends PagerAdapter {
         ViewGroup layout = (ViewGroup) inflater.inflate(R.layout.pager_layout, container, false);
 
         final GridView mGridView = layout.findViewById(R.id.grid);
-        mGridView.setAdapter(new AppAdapter(context,pagerAppList.get(position).getAppList(), ceilHeight));
+        mGridView.setNumColumns(numColumn);
+
+        AppAdapter mGridAdapter = new AppAdapter(context,pagerAppList.get(position).getAppList(), ceilHeight);
+        mGridView.setAdapter(mGridAdapter);
+
+        appAdapterList.add(mGridAdapter);
 
         container.addView(layout);
 
@@ -57,5 +64,11 @@ public class viewPagerAdapter extends PagerAdapter {
     @Override
     public boolean isViewFromObject(@NonNull View view, @NonNull Object object) {
         return view == object;
+    }
+
+    public void notifiGridChanged(){
+        for(int i=0; i<appAdapterList.size(); i++){
+            appAdapterList.get(i).notifyDataSetChanged();
+        }
     }
 }
